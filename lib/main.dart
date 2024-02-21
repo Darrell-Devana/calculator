@@ -28,10 +28,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _numberController = TextEditingController();
+  final _numberController = TextEditingController(text: '0');
+  String clearButtonText = '';
+
+  @override
+  void initState() {
+    super.initState();
+    clearButtonText = 'AC'; // Or again here for clarity
+  }
 
   @override
   Widget build(BuildContext context) {
+    _numberController.addListener(() {
+      setState(() {
+        clearButtonText = _numberController.text != "0" ? "C" : "AC";
+      });
+    });
+
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
         brightness: Brightness.dark,
@@ -48,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: CupertinoTextField(
                     controller: _numberController,
                     maxLength: 11,
-                    cursorColor: Colors.transparent,
+                    showCursor: false,
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.end,
                     textAlignVertical: const TextAlignVertical(y: 1),
@@ -71,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Button(
                               tap: clear,
-                              operator: "AC",
+                              operator: clearButtonText,
                               color: 0xffa5a5a5,
                               fontColor: 0xff000000,
                             ),
@@ -228,68 +241,90 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void numberZero() {
+    if (_numberController.text == '0') {
+      _numberController.clear();
+    }
     _numberController.text += "0";
   }
 
   void numberOne() {
+    if (_numberController.text == '0') {
+      _numberController.clear();
+    }
     _numberController.text += "1";
   }
 
   void numberTwo() {
+    if (_numberController.text == '0') {
+      _numberController.clear();
+    }
     _numberController.text += "2";
   }
 
   void numberThree() {
+    if (_numberController.text == '0') {
+      _numberController.clear();
+    }
     _numberController.text += "3";
   }
 
   void numberFour() {
+    if (_numberController.text == '0') {
+      _numberController.clear();
+    }
     _numberController.text += "4";
   }
 
   void numberFive() {
+    if (_numberController.text == '0') {
+      _numberController.clear();
+    }
     _numberController.text += "5";
   }
 
   void numberSix() {
+    if (_numberController.text == '0') {
+      _numberController.clear();
+    }
     _numberController.text += "6";
   }
 
   void numberSeven() {
+    if (_numberController.text == '0') {
+      _numberController.clear();
+    }
     _numberController.text += "7";
   }
 
   void numberEight() {
+    if (_numberController.text == '0') {
+      _numberController.clear();
+    }
     _numberController.text += "8";
   }
 
   void numberNine() {
+    if (_numberController.text == '0') {
+      _numberController.clear();
+    }
     _numberController.text += "9";
   }
 
-  void equal() {
-    _numberController.text += "=";
-  }
+  void equal() {}
 
-  void plus() {
-    _numberController.text += "+";
-  }
+  void plus() {}
 
-  void minus() {
-    _numberController.text += "-";
-  }
+  void minus() {}
 
   void multiply() {}
 
   void divide() {}
 
   void clear() {
-    _numberController.clear();
+    _numberController.text = '0';
   }
 
-  void percent() {
-    _numberController.text += "%";
-  }
+  void percent() {}
 
   void comma() {
     _numberController.text += ",";
