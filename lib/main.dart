@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:calculator/Button.dart';
@@ -30,6 +32,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _numberController = TextEditingController(text: '0');
   String clearButtonText = '';
+  double firstNumber = 0;
+  double secondNumber = 0;
+  String currentOperator = "";
+  String tempResult = "";
+  String tempReplace = "";
+  bool indicator = false;
 
   @override
   void initState() {
@@ -41,7 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     _numberController.addListener(() {
       setState(() {
-        clearButtonText = _numberController.text != "0" ? "C" : "AC";
+        clearButtonText =
+            _numberController.text != "0" && _numberController.text != "-0"
+                ? "C"
+                : "AC";
       });
     });
 
@@ -88,7 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: 0xffa5a5a5,
                               fontColor: 0xff000000,
                             ),
-                            const Button(
+                            Button(
+                              tap: plusMinus,
                               operator: "+/-",
                               color: 0xffa5a5a5,
                               fontColor: 0xff000000,
@@ -243,12 +255,18 @@ class _MyHomePageState extends State<MyHomePage> {
   void numberZero() {
     if (_numberController.text == '0') {
       _numberController.clear();
+    } else if (indicator == true) {
+      indicator = false;
+      _numberController.clear();
     }
     _numberController.text += "0";
   }
 
   void numberOne() {
     if (_numberController.text == '0') {
+      _numberController.clear();
+    } else if (indicator == true) {
+      indicator = false;
       _numberController.clear();
     }
     _numberController.text += "1";
@@ -257,12 +275,18 @@ class _MyHomePageState extends State<MyHomePage> {
   void numberTwo() {
     if (_numberController.text == '0') {
       _numberController.clear();
+    } else if (indicator == true) {
+      indicator = false;
+      _numberController.clear();
     }
     _numberController.text += "2";
   }
 
   void numberThree() {
     if (_numberController.text == '0') {
+      _numberController.clear();
+    } else if (indicator == true) {
+      indicator = false;
       _numberController.clear();
     }
     _numberController.text += "3";
@@ -271,12 +295,18 @@ class _MyHomePageState extends State<MyHomePage> {
   void numberFour() {
     if (_numberController.text == '0') {
       _numberController.clear();
+    } else if (indicator == true) {
+      indicator = false;
+      _numberController.clear();
     }
     _numberController.text += "4";
   }
 
   void numberFive() {
     if (_numberController.text == '0') {
+      _numberController.clear();
+    } else if (indicator == true) {
+      indicator = false;
       _numberController.clear();
     }
     _numberController.text += "5";
@@ -285,12 +315,18 @@ class _MyHomePageState extends State<MyHomePage> {
   void numberSix() {
     if (_numberController.text == '0') {
       _numberController.clear();
+    } else if (indicator == true) {
+      indicator = false;
+      _numberController.clear();
     }
     _numberController.text += "6";
   }
 
   void numberSeven() {
     if (_numberController.text == '0') {
+      _numberController.clear();
+    } else if (indicator == true) {
+      indicator = false;
       _numberController.clear();
     }
     _numberController.text += "7";
@@ -299,6 +335,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void numberEight() {
     if (_numberController.text == '0') {
       _numberController.clear();
+    } else if (indicator == true) {
+      indicator = false;
+      _numberController.clear();
     }
     _numberController.text += "8";
   }
@@ -306,27 +345,105 @@ class _MyHomePageState extends State<MyHomePage> {
   void numberNine() {
     if (_numberController.text == '0') {
       _numberController.clear();
+    } else if (indicator == true) {
+      indicator = false;
+      _numberController.clear();
     }
     _numberController.text += "9";
   }
 
-  void equal() {}
-
-  void plus() {}
-
-  void minus() {}
-
-  void multiply() {}
-
-  void divide() {}
-
-  void clear() {
-    _numberController.text = '0';
+  void equal() {
+    tempReplace = _numberController.text;
+    tempReplace = tempReplace.replaceAll(",", ".");
+    secondNumber = double.parse(tempReplace);
+    switch (currentOperator) {
+      case "+":
+        tempResult = (firstNumber + secondNumber).toString();
+        break;
+      case "-":
+        tempResult = (firstNumber - secondNumber).toString();
+        break;
+      case "*":
+        tempResult = (firstNumber * secondNumber).toString();
+        break;
+      case "/":
+        tempResult = (firstNumber / secondNumber).toString();
+        break;
+      case "%":
+        tempResult = (firstNumber * (secondNumber / 100)).toString();
+        break;
+    }
+    firstNumber = 0;
+    secondNumber = 0;
+    currentOperator = "";
+    indicator = true;
+    _numberController.text = tempResult;
   }
 
-  void percent() {}
+  void plus() {
+    tempReplace = _numberController.text;
+    tempReplace = tempReplace.replaceAll(",", ".");
+    firstNumber = double.parse(tempReplace);
+    currentOperator = "+";
+    _numberController.text = "0";
+    indicator = false;
+  }
+
+  void minus() {
+    tempReplace = _numberController.text;
+    tempReplace = tempReplace.replaceAll(",", ".");
+    firstNumber = double.parse(tempReplace);
+    currentOperator = "-";
+    _numberController.text = "0";
+    indicator = false;
+  }
+
+  void multiply() {
+    tempReplace = _numberController.text;
+    tempReplace = tempReplace.replaceAll(",", ".");
+    firstNumber = double.parse(tempReplace);
+    currentOperator = "*";
+    _numberController.text = "0";
+    indicator = false;
+  }
+
+  void divide() {
+    tempReplace = _numberController.text;
+    tempReplace = tempReplace.replaceAll(",", ".");
+    firstNumber = double.parse(tempReplace);
+    currentOperator = "/";
+    _numberController.text = "0";
+    indicator = false;
+  }
+
+  void clear() {
+    firstNumber = 0;
+    secondNumber = 0;
+    currentOperator = "";
+    tempResult = "";
+    _numberController.text = '0';
+    indicator = false;
+  }
+
+  void percent() {
+    tempReplace = _numberController.text;
+    tempReplace = tempReplace.replaceAll(",", ".");
+    firstNumber = double.parse(tempReplace);
+    currentOperator = "%";
+    _numberController.text = "0";
+    indicator = false;
+  }
 
   void comma() {
     _numberController.text += ",";
+  }
+
+  void plusMinus() {
+    String currentNumber = _numberController.text;
+    if (currentNumber.startsWith("-")) {
+      _numberController.text = currentNumber.substring(1);
+    } else if (currentNumber != "0") {
+      _numberController.text = "-$currentNumber";
+    }
   }
 }
