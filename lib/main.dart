@@ -504,8 +504,21 @@ class _MyHomePageState extends State<MyHomePage> {
     if (currentOperator == "+" && indicator == false) {
       secondNumber = double.parse(tempReplace);
       tempResult = (firstNumber + secondNumber).toString();
-      formattedResult = numberFormat.format(double.parse(tempResult));
-      _numberController.text = formattedResult;
+      if (tempResult.length > 11) {
+        final value = double.parse(tempResult);
+        if (value.toString().indexOf('0') == 1) {
+          formattedResult = value.toStringAsExponential(0);
+          formattedResult = formattedResult.replaceAll("+", "");
+          _numberController.text = formattedResult;
+        } else {
+          formattedResult = value.toStringAsExponential(4);
+          formattedResult = formattedResult.replaceAll("+", "");
+          _numberController.text = formattedResult;
+        }
+      } else {
+        formattedResult = numberFormat.format(double.parse(tempResult));
+        _numberController.text = formattedResult;
+      }
       firstNumber = double.parse(tempResult);
       secondNumber = 0;
       indicator = true;
@@ -522,8 +535,21 @@ class _MyHomePageState extends State<MyHomePage> {
     if (currentOperator == "-" && indicator == false) {
       secondNumber = double.parse(tempReplace);
       tempResult = (firstNumber - secondNumber).toString();
-      formattedResult = numberFormat.format(double.parse(tempResult));
-      _numberController.text = formattedResult;
+      if (tempResult.length > 11) {
+        final value = double.parse(tempResult);
+        if (value.toString().indexOf('0') == 1) {
+          formattedResult = value.toStringAsExponential(0);
+          formattedResult = formattedResult.replaceAll("+", "");
+          _numberController.text = formattedResult;
+        } else {
+          formattedResult = value.toStringAsExponential(4);
+          formattedResult = formattedResult.replaceAll("+", "");
+          _numberController.text = formattedResult;
+        }
+      } else {
+        formattedResult = numberFormat.format(double.parse(tempResult));
+        _numberController.text = formattedResult;
+      }
       firstNumber = double.parse(tempResult);
       secondNumber = 0;
       indicator = true;
@@ -540,8 +566,21 @@ class _MyHomePageState extends State<MyHomePage> {
     if (currentOperator == "*" && indicator == false) {
       secondNumber = double.parse(tempReplace);
       tempResult = (firstNumber * secondNumber).toString();
-      formattedResult = numberFormat.format(double.parse(tempResult));
-      _numberController.text = formattedResult;
+      if (tempResult.length > 11) {
+        final value = double.parse(tempResult);
+        if (value.toString().indexOf('0') == 1) {
+          formattedResult = value.toStringAsExponential(0);
+          formattedResult = formattedResult.replaceAll("+", "");
+          _numberController.text = formattedResult;
+        } else {
+          formattedResult = value.toStringAsExponential(4);
+          formattedResult = formattedResult.replaceAll("+", "");
+          _numberController.text = formattedResult;
+        }
+      } else {
+        formattedResult = numberFormat.format(double.parse(tempResult));
+        _numberController.text = formattedResult;
+      }
       firstNumber = double.parse(tempResult);
       secondNumber = 0;
       indicator = true;
@@ -558,8 +597,21 @@ class _MyHomePageState extends State<MyHomePage> {
     if (currentOperator == "/" && indicator == false) {
       secondNumber = double.parse(tempReplace);
       tempResult = (firstNumber / secondNumber).toString();
-      formattedResult = numberFormat.format(double.parse(tempResult));
-      _numberController.text = formattedResult;
+      if (tempResult.length > 11) {
+        final value = double.parse(tempResult);
+        if (value.toString().indexOf('0') == 1) {
+          formattedResult = value.toStringAsExponential(0);
+          formattedResult = formattedResult.replaceAll("+", "");
+          _numberController.text = formattedResult;
+        } else {
+          formattedResult = value.toStringAsExponential(4);
+          formattedResult = formattedResult.replaceAll("+", "");
+          _numberController.text = formattedResult;
+        }
+      } else {
+        formattedResult = numberFormat.format(double.parse(tempResult));
+        _numberController.text = formattedResult;
+      }
       firstNumber = double.parse(tempResult);
       secondNumber = 0;
       indicator = true;
