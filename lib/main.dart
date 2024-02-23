@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:calculator/Button.dart';
 import 'Button2.dart';
+import 'package:intl/intl.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,7 +12,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return const CupertinoApp(
@@ -28,6 +29,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final numberFormat = NumberFormat.decimalPattern();
   final _numberController = TextEditingController(text: '0');
   String clearButtonText = '';
   double firstNumber = 0;
@@ -35,12 +37,15 @@ class _MyHomePageState extends State<MyHomePage> {
   String currentOperator = "";
   String tempResult = "";
   String tempReplace = "";
+  String tempNumber = "";
+  String formattedResult = "0";
+  String formattedNumber = "";
   bool indicator = false;
 
   @override
   void initState() {
     super.initState();
-    clearButtonText = 'AC'; // Or again here for clarity
+    clearButtonText = 'AC';
   }
 
   @override
@@ -67,17 +72,29 @@ class _MyHomePageState extends State<MyHomePage> {
               Expanded(
                 flex: 1,
                 child: SizedBox(
-                  child: CupertinoTextField(
-                    controller: _numberController,
-                    maxLength: 11,
-                    showCursor: false,
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.end,
-                    textAlignVertical: const TextAlignVertical(y: 1),
-                    style: const TextStyle(
-                      fontSize: 80,
-                      fontWeight: FontWeight.w300,
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width - 40,
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            alignment: Alignment.centerRight,
+                            child: AutoSizeText(
+                              _numberController.text,
+                              style: const TextStyle(
+                                fontSize: 80,
+                                fontWeight: FontWeight.w300,
+                              ),
+                              maxLines: 1, // Prevent multiple lines
+                              minFontSize: 50, // Set a minimum if you want
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -92,7 +109,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Button(
-                              tap: clear,
+                              tap: _numberController.text == "0"
+                                  ? allClear
+                                  : clear,
                               operator: clearButtonText,
                               color: 0xffa5a5a5,
                               fontColor: 0xff000000,
@@ -226,7 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             Button(
                               tap: comma,
-                              operator: ",",
+                              operator: ".",
                               color: 0xff333333,
                               fontColor: 0xffffffff,
                             ),
@@ -256,8 +275,17 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (indicator == true) {
       indicator = false;
       _numberController.clear();
+      tempNumber = "";
     }
-    _numberController.text += "0";
+    if (_numberController.text.length < 11) {
+      tempNumber += "0";
+      if (_numberController.text.contains(".")) {
+        _numberController.text += "0";
+      } else {
+        formattedNumber = numberFormat.format(double.parse(tempNumber));
+        _numberController.text = formattedNumber;
+      }
+    }
   }
 
   void numberOne() {
@@ -266,8 +294,17 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (indicator == true) {
       indicator = false;
       _numberController.clear();
+      tempNumber = "";
     }
-    _numberController.text += "1";
+    if (_numberController.text.length < 11) {
+      tempNumber += "1";
+      if (_numberController.text.contains(".")) {
+        _numberController.text += "1";
+      } else {
+        formattedNumber = numberFormat.format(double.parse(tempNumber));
+        _numberController.text = formattedNumber;
+      }
+    }
   }
 
   void numberTwo() {
@@ -276,8 +313,17 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (indicator == true) {
       indicator = false;
       _numberController.clear();
+      tempNumber = "";
     }
-    _numberController.text += "2";
+    if (_numberController.text.length < 11) {
+      tempNumber += "2";
+      if (_numberController.text.contains(".")) {
+        _numberController.text += "2";
+      } else {
+        formattedNumber = numberFormat.format(double.parse(tempNumber));
+        _numberController.text = formattedNumber;
+      }
+    }
   }
 
   void numberThree() {
@@ -286,8 +332,17 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (indicator == true) {
       indicator = false;
       _numberController.clear();
+      tempNumber = "";
     }
-    _numberController.text += "3";
+    if (_numberController.text.length < 11) {
+      tempNumber += "3";
+      if (_numberController.text.contains(".")) {
+        _numberController.text += "3";
+      } else {
+        formattedNumber = numberFormat.format(double.parse(tempNumber));
+        _numberController.text = formattedNumber;
+      }
+    }
   }
 
   void numberFour() {
@@ -296,8 +351,17 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (indicator == true) {
       indicator = false;
       _numberController.clear();
+      tempNumber = "";
     }
-    _numberController.text += "4";
+    if (_numberController.text.length < 11) {
+      tempNumber += "4";
+      if (_numberController.text.contains(".")) {
+        _numberController.text += "4";
+      } else {
+        formattedNumber = numberFormat.format(double.parse(tempNumber));
+        _numberController.text = formattedNumber;
+      }
+    }
   }
 
   void numberFive() {
@@ -306,8 +370,17 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (indicator == true) {
       indicator = false;
       _numberController.clear();
+      tempNumber = "";
     }
-    _numberController.text += "5";
+    if (_numberController.text.length < 11) {
+      tempNumber += "5";
+      if (_numberController.text.contains(".")) {
+        _numberController.text += "5";
+      } else {
+        formattedNumber = numberFormat.format(double.parse(tempNumber));
+        _numberController.text = formattedNumber;
+      }
+    }
   }
 
   void numberSix() {
@@ -316,8 +389,17 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (indicator == true) {
       indicator = false;
       _numberController.clear();
+      tempNumber = "";
     }
-    _numberController.text += "6";
+    if (_numberController.text.length < 11) {
+      tempNumber += "6";
+      if (_numberController.text.contains(".")) {
+        _numberController.text += "6";
+      } else {
+        formattedNumber = numberFormat.format(double.parse(tempNumber));
+        _numberController.text = formattedNumber;
+      }
+    }
   }
 
   void numberSeven() {
@@ -326,8 +408,17 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (indicator == true) {
       indicator = false;
       _numberController.clear();
+      tempNumber = "";
     }
-    _numberController.text += "7";
+    if (_numberController.text.length < 11) {
+      tempNumber += "7";
+      if (_numberController.text.contains(".")) {
+        _numberController.text += "7";
+      } else {
+        formattedNumber = numberFormat.format(double.parse(tempNumber));
+        _numberController.text = formattedNumber;
+      }
+    }
   }
 
   void numberEight() {
@@ -336,8 +427,17 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (indicator == true) {
       indicator = false;
       _numberController.clear();
+      tempNumber = "";
     }
-    _numberController.text += "8";
+    if (_numberController.text.length < 11) {
+      tempNumber += "8";
+      if (_numberController.text.contains(".")) {
+        _numberController.text += "8";
+      } else {
+        formattedNumber = numberFormat.format(double.parse(tempNumber));
+        _numberController.text = formattedNumber;
+      }
+    }
   }
 
   void numberNine() {
@@ -346,94 +446,165 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (indicator == true) {
       indicator = false;
       _numberController.clear();
+      tempNumber = "";
     }
-    _numberController.text += "9";
+    if (_numberController.text.length < 11) {
+      tempNumber += "9";
+      if (_numberController.text.contains(".")) {
+        _numberController.text += "9";
+      } else {
+        formattedNumber = numberFormat.format(double.parse(tempNumber));
+        _numberController.text = formattedNumber;
+      }
+    }
   }
 
   void equal() {
     tempReplace = _numberController.text;
-    tempReplace = tempReplace.replaceAll(",", ".");
+    tempReplace = tempReplace.replaceAll(",", "");
     secondNumber = double.parse(tempReplace);
     switch (currentOperator) {
       case "+":
-        tempResult = (firstNumber + secondNumber).toString();
+        tempResult = (firstNumber + (secondNumber)).toString();
         break;
       case "-":
-        tempResult = (firstNumber - secondNumber).toString();
+        tempResult = (firstNumber - (secondNumber)).toString();
         break;
       case "*":
-        tempResult = (firstNumber * secondNumber).toString();
+        tempResult = (firstNumber * (secondNumber)).toString();
         break;
       case "/":
-        tempResult = (firstNumber / secondNumber).toString();
-        break;
-      case "%":
-        tempResult = (firstNumber * (secondNumber / 100)).toString();
+        tempResult = (firstNumber / (secondNumber)).toString();
         break;
     }
     firstNumber = 0;
     secondNumber = 0;
     currentOperator = "";
     indicator = true;
-    _numberController.text = tempResult;
+    if (tempResult.length > 11) {
+      final value = double.parse(tempResult);
+      if (value.toString().indexOf('0') == 1) {
+        formattedResult = value.toStringAsExponential(0);
+        formattedResult = formattedResult.replaceAll("+", "");
+        _numberController.text = formattedResult;
+      } else {
+        formattedResult = value.toStringAsExponential(4);
+        formattedResult = formattedResult.replaceAll("+", "");
+        _numberController.text = formattedResult;
+      }
+    } else {
+      formattedResult = numberFormat.format(double.parse(tempResult));
+      _numberController.text = formattedResult;
+    }
   }
 
   void plus() {
     tempReplace = _numberController.text;
-    tempReplace = tempReplace.replaceAll(",", ".");
-    firstNumber = double.parse(tempReplace);
-    currentOperator = "+";
-    _numberController.text = "0";
-    indicator = false;
+    tempReplace = tempReplace.replaceAll(",", "");
+    if (currentOperator == "+" && indicator == false) {
+      secondNumber = double.parse(tempReplace);
+      tempResult = (firstNumber + secondNumber).toString();
+      formattedResult = numberFormat.format(double.parse(tempResult));
+      _numberController.text = formattedResult;
+      firstNumber = double.parse(tempResult);
+      secondNumber = 0;
+      indicator = true;
+    } else {
+      firstNumber = double.parse(tempReplace);
+      currentOperator = "+";
+      indicator = true;
+    }
   }
 
   void minus() {
     tempReplace = _numberController.text;
-    tempReplace = tempReplace.replaceAll(",", ".");
-    firstNumber = double.parse(tempReplace);
-    currentOperator = "-";
-    _numberController.text = "0";
-    indicator = false;
+    tempReplace = tempReplace.replaceAll(",", "");
+    if (currentOperator == "-" && indicator == false) {
+      secondNumber = double.parse(tempReplace);
+      tempResult = (firstNumber - secondNumber).toString();
+      formattedResult = numberFormat.format(double.parse(tempResult));
+      _numberController.text = formattedResult;
+      firstNumber = double.parse(tempResult);
+      secondNumber = 0;
+      indicator = true;
+    } else {
+      firstNumber = double.parse(tempReplace);
+      currentOperator = "-";
+      indicator = true;
+    }
   }
 
   void multiply() {
     tempReplace = _numberController.text;
-    tempReplace = tempReplace.replaceAll(",", ".");
-    firstNumber = double.parse(tempReplace);
-    currentOperator = "*";
-    _numberController.text = "0";
-    indicator = false;
+    tempReplace = tempReplace.replaceAll(",", "");
+    if (currentOperator == "*" && indicator == false) {
+      secondNumber = double.parse(tempReplace);
+      tempResult = (firstNumber * secondNumber).toString();
+      formattedResult = numberFormat.format(double.parse(tempResult));
+      _numberController.text = formattedResult;
+      firstNumber = double.parse(tempResult);
+      secondNumber = 0;
+      indicator = true;
+    } else {
+      firstNumber = double.parse(tempReplace);
+      currentOperator = "*";
+      indicator = true;
+    }
   }
 
   void divide() {
     tempReplace = _numberController.text;
-    tempReplace = tempReplace.replaceAll(",", ".");
-    firstNumber = double.parse(tempReplace);
-    currentOperator = "/";
-    _numberController.text = "0";
-    indicator = false;
+    tempReplace = tempReplace.replaceAll(",", "");
+    if (currentOperator == "/" && indicator == false) {
+      secondNumber = double.parse(tempReplace);
+      tempResult = (firstNumber / secondNumber).toString();
+      formattedResult = numberFormat.format(double.parse(tempResult));
+      _numberController.text = formattedResult;
+      firstNumber = double.parse(tempResult);
+      secondNumber = 0;
+      indicator = true;
+    } else {
+      firstNumber = double.parse(tempReplace);
+      currentOperator = "/";
+      indicator = true;
+    }
   }
 
   void clear() {
+    _numberController.text = '0';
+    tempNumber = "";
+    indicator = false;
+  }
+
+  void allClear() {
+    indicator = false;
     firstNumber = 0;
     secondNumber = 0;
     currentOperator = "";
     tempResult = "";
-    _numberController.text = '0';
-    indicator = false;
   }
 
   void percent() {
-    tempReplace = _numberController.text;
-    tempReplace = tempReplace.replaceAll(",", ".");
-    firstNumber = double.parse(tempReplace);
-    currentOperator = "%";
-    _numberController.text = "0";
-    indicator = false;
+    if (firstNumber != 0) {
+      tempReplace = _numberController.text;
+      tempReplace = tempReplace.replaceAll(",", "");
+      secondNumber = double.parse(tempReplace);
+      secondNumber = secondNumber / 100;
+      formattedResult = numberFormat.format(secondNumber);
+      _numberController.text = formattedResult;
+    } else {
+      tempReplace = _numberController.text;
+      tempReplace = tempReplace.replaceAll(",", "");
+      firstNumber = double.parse(tempReplace);
+      firstNumber = firstNumber / 100;
+      formattedResult = numberFormat.format(firstNumber);
+      _numberController.text = formattedResult;
+    }
   }
 
   void comma() {
-    _numberController.text += ",";
+    // tempNumber += ".";
+    _numberController.text += ".";
   }
 
   void plusMinus() {
