@@ -460,6 +460,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void equal() {
+    final double check;
     tempReplace = _numberController.text;
     tempReplace = tempReplace.replaceAll(",", "");
     secondNumber = double.parse(tempReplace);
@@ -481,7 +482,8 @@ class _MyHomePageState extends State<MyHomePage> {
     secondNumber = 0;
     currentOperator = "";
     indicator = true;
-    if (tempResult.length > 11) {
+    check = double.parse(tempResult);
+    if (check >= 1000000000) {
       final value = double.parse(tempResult);
       if (value.toString().indexOf('0') == 1) {
         formattedResult = value.toStringAsExponential(0);
@@ -499,12 +501,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void plus() {
+    final double check;
     tempReplace = _numberController.text;
     tempReplace = tempReplace.replaceAll(",", "");
     if (currentOperator == "+" && indicator == false) {
       secondNumber = double.parse(tempReplace);
       tempResult = (firstNumber + secondNumber).toString();
-      if (tempResult.length > 11) {
+      check = double.parse(tempResult);
+      if (check >= 1000000000) {
         final value = double.parse(tempResult);
         if (value.toString().indexOf('0') == 1) {
           formattedResult = value.toStringAsExponential(0);
@@ -530,12 +534,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void minus() {
+    final double check;
     tempReplace = _numberController.text;
     tempReplace = tempReplace.replaceAll(",", "");
     if (currentOperator == "-" && indicator == false) {
       secondNumber = double.parse(tempReplace);
       tempResult = (firstNumber - secondNumber).toString();
-      if (tempResult.length > 11) {
+      check = double.parse(tempResult);
+      if (check >= 1000000000) {
         final value = double.parse(tempResult);
         if (value.toString().indexOf('0') == 1) {
           formattedResult = value.toStringAsExponential(0);
@@ -561,12 +567,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void multiply() {
+    final double check;
     tempReplace = _numberController.text;
     tempReplace = tempReplace.replaceAll(",", "");
     if (currentOperator == "*" && indicator == false) {
       secondNumber = double.parse(tempReplace);
       tempResult = (firstNumber * secondNumber).toString();
-      if (tempResult.length > 11) {
+      check = double.parse(tempResult);
+      if (check >= 1000000000) {
         final value = double.parse(tempResult);
         if (value.toString().indexOf('0') == 1) {
           formattedResult = value.toStringAsExponential(0);
@@ -592,12 +600,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void divide() {
+    final double check;
     tempReplace = _numberController.text;
     tempReplace = tempReplace.replaceAll(",", "");
     if (currentOperator == "/" && indicator == false) {
       secondNumber = double.parse(tempReplace);
       tempResult = (firstNumber / secondNumber).toString();
-      if (tempResult.length > 11) {
+      check = double.parse(tempResult);
+      if (check >= 1000000000) {
         final value = double.parse(tempResult);
         if (value.toString().indexOf('0') == 1) {
           formattedResult = value.toStringAsExponential(0);
@@ -656,7 +666,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void comma() {
     // tempNumber += ".";
-    _numberController.text += ".";
+    if (_numberController.text.contains(".")) {
+      null;
+    } else {
+      _numberController.text += ".";
+    }
   }
 
   void plusMinus() {
