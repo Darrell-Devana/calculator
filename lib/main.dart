@@ -131,8 +131,12 @@ class _MyHomePageState extends State<MyHomePage> {
                             Button(
                               tap: divide,
                               operator: "/",
-                              color: 0xfff2a33c,
-                              fontColor: 0xffffffff,
+                              color: currentOperator == "/"
+                                  ? 0xffffffff
+                                  : 0xfff2a33c,
+                              fontColor: currentOperator == "/"
+                                  ? 0xfff2a33c
+                                  : 0xffffffff,
                             ),
                           ],
                         ),
@@ -163,8 +167,12 @@ class _MyHomePageState extends State<MyHomePage> {
                             Button(
                               tap: multiply,
                               operator: "x",
-                              color: 0xfff2a33c,
-                              fontColor: 0xffffffff,
+                              color: currentOperator == "*"
+                                  ? 0xffffffff
+                                  : 0xfff2a33c,
+                              fontColor: currentOperator == "*"
+                                  ? 0xfff2a33c
+                                  : 0xffffffff,
                             ),
                           ],
                         ),
@@ -195,8 +203,12 @@ class _MyHomePageState extends State<MyHomePage> {
                             Button(
                               tap: minus,
                               operator: "-",
-                              color: 0xfff2a33c,
-                              fontColor: 0xffffffff,
+                              color: currentOperator == "-"
+                                  ? 0xffffffff
+                                  : 0xfff2a33c,
+                              fontColor: currentOperator == "-"
+                                  ? 0xfff2a33c
+                                  : 0xffffffff,
                             ),
                           ],
                         ),
@@ -227,8 +239,12 @@ class _MyHomePageState extends State<MyHomePage> {
                             Button(
                               tap: plus,
                               operator: "+",
-                              color: 0xfff2a33c,
-                              fontColor: 0xffffffff,
+                              color: currentOperator == "+"
+                                  ? 0xffffffff
+                                  : 0xfff2a33c,
+                              fontColor: currentOperator == "+"
+                                  ? 0xfff2a33c
+                                  : 0xffffffff,
                             ),
                           ],
                         ),
@@ -528,7 +544,9 @@ class _MyHomePageState extends State<MyHomePage> {
       indicator = true;
     } else {
       firstNumber = double.parse(tempReplace);
-      currentOperator = "+";
+      setState(() {
+        currentOperator = "+";
+      });
       indicator = true;
     }
   }
@@ -561,7 +579,9 @@ class _MyHomePageState extends State<MyHomePage> {
       indicator = true;
     } else {
       firstNumber = double.parse(tempReplace);
-      currentOperator = "-";
+      setState(() {
+        currentOperator = "-";
+      });
       indicator = true;
     }
   }
@@ -594,7 +614,9 @@ class _MyHomePageState extends State<MyHomePage> {
       indicator = true;
     } else {
       firstNumber = double.parse(tempReplace);
-      currentOperator = "*";
+      setState(() {
+        currentOperator = "*";
+      });
       indicator = true;
     }
   }
@@ -627,7 +649,9 @@ class _MyHomePageState extends State<MyHomePage> {
       indicator = true;
     } else {
       firstNumber = double.parse(tempReplace);
-      currentOperator = "/";
+      setState(() {
+        currentOperator = "/";
+      });
       indicator = true;
     }
   }
